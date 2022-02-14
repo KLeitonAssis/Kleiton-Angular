@@ -1,0 +1,20 @@
+export interface mensal {
+	ORI_DESCRICAO: String,
+	TIPO: String,
+	HC_ESCALADOS: number,
+	HC_FALTAS: number,
+	HC_TRABALHADO: number,
+	HC_PER_ABS_TOTAL: number,
+	TP_MD_LIG: number,
+	LIG_MD_VENDA: number,
+	VEN_HC: number,
+	VEN_TOTAL: number,
+	VEN_BRUTA: number,
+	RGD_DIA_TRABALHADO_SEM_VENDA: number,
+	RGD_DIA_TRABALHADO_SEM_VENDA_PCTG: number,
+    VEN_LIQUIDA: number,
+	OBJ_LIGACOES_HC: number,
+	OBJ_LIGACOES_VENDA: number,
+	OBJ_VENDA_HC: number,
+	OBJ_VENDA_DIA: number
+ }

@@ -1,0 +1,88 @@
+<div id="exportContainer">
+   <dx-button
+     text="Exportar relatório"
+     icon="xlsxfile"
+     (onClick)="exportGrids($event)"
+   ></dx-button>
+ </div>
+    <dx-data-grid
+    id="gridContainer"
+    #mensal
+    [dataSource]="mensais"
+    column="false"
+    [showBorders]="true"
+    columnWidth="100px"
+    [allowColumnReordering]="true"
+    >
+    <dxo-load-panel [enabled]="true"></dxo-load-panel>
+    <dxo-scrolling mode="virtual" useNative="true"></dxo-scrolling>
+    <dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+    <dxo-column-chooser [enabled]="true" title="Filtro de Colunas" emptyPanelText="Arraste as colunas que deseja tirar do relatório"></dxo-column-chooser>
+    <dxi-column caption="Operação" alignment="center" fixed="left">
+       <dxi-column dataField="ORI_DESCRICAO" alignment="center"
+          caption="Cliente">
+       </dxi-column>
+       <dxi-column dataField="TIPO" alignment="center"
+          caption="Tipo">
+       </dxi-column>
+    </dxi-column>
+    <dxi-column caption="HC" alignment="center">
+       <dxi-column dataField="HC_ESCALADOS" alignment="center"
+          caption="Escl">
+       </dxi-column>
+       <dxi-column dataField="HC_FALTAS" alignment="center"
+          caption="Faltas">
+       </dxi-column>
+       <dxi-column dataField="HC_TRABALHADO" alignment="center"
+          caption="Trab">
+       </dxi-column>
+    </dxi-column>
+    <dxi-column caption="% ABS" alignment="center">
+       <dxi-column dataField="HC_PER_ABS_TOTAL" alignment="center"  
+          cssClass="bullet"
+          caption="Total">
+       </dxi-column>
+    </dxi-column>
+    <dxi-column caption="Lig Médias" alignment="center">
+       <dxi-column dataField="TP_MD_LIG" alignment="center"
+          caption="HC">
+       </dxi-column>
+       <dxi-column dataField="LIG_MD_VENDA" alignment="center"
+          caption="Venda">
+       </dxi-column>
+    </dxi-column>
+    <dxi-column caption="Vendas" alignment="center">
+       <dxi-column dataField="VEN_HC" alignment="center"
+          caption="HC">
+       </dxi-column>
+       <dxi-column dataField="VEN_TOTAL" alignment="center"
+          caption="Dia">
+       </dxi-column>
+       <dxi-column dataField="VEN_BRUTA" alignment="center"
+          caption="Total">
+       </dxi-column>
+       <dxi-column dataField="RGD_DIA_TRABALHADO_SEM_VENDA" alignment="center"
+          caption="s/VD">
+       </dxi-column>
+       <dxi-column dataField="RGD_DIA_TRABALHADO_SEM_VENDA_PCTG" alignment="center"
+          caption="% s/VD">
+       </dxi-column>
+       <dxi-column dataField="VEN_LIQUIDA" alignment="center"
+          caption="Vd.Liq">
+       </dxi-column>
+    </dxi-column>
+    <dxi-column caption="Planejamento" alignment="center">
+       <dxi-column dataField="OBJ_LIGACOES_HC" alignment="center"
+          caption="Lig / HC">
+       </dxi-column>
+       <dxi-column dataField="OBJ_LIGACOES_VENDA" alignment="center"
+          caption="Lig / Vd">
+       </dxi-column>
+       <dxi-column dataField="OBJ_VENDA_HC" alignment="center"
+          caption="Vd / HC">
+       </dxi-column>
+       <dxi-column dataField="OBJ_VENDA_DIA" alignment="center"
+          caption="Vd md / dia">
+       </dxi-column>
+    </dxi-column>
+    </dx-data-grid>

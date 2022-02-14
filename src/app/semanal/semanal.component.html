@@ -1,0 +1,164 @@
+<div id="exportContainer">
+   <dx-button
+     text="Exportar relatório"
+     icon="xlsxfile"
+     (onClick)="exportGrids($event)"
+   ></dx-button>
+ </div>
+<dx-data-grid
+id="gridContainer"
+#sgi
+[dataSource]="sgis"
+keyExpr="MES"
+columnWidth="80px"
+[showBorders]="true"
+[allowColumnReordering]="true"
+
+>
+<dxo-load-panel [enabled]="true"></dxo-load-panel>
+<dxo-scrolling mode="virtual" useNative="true"></dxo-scrolling>
+<dxo-grouping #expand [autoExpandAll]="true"></dxo-grouping>
+<dxo-column-chooser [enabled]="true" title="Filtro de Colunas" emptyPanelText="Arraste as colunas que deseja tirar do relatório"></dxo-column-chooser>
+<dxi-column caption="Mês" alignment="center" fixed="left">
+   <dxi-column dataField="MES" width="110px" alignment="center" 
+      caption="Mês" fixed="left">
+   </dxi-column>
+   <dxi-column dataField="DIAS_UTEIS" alignment="center"
+      caption="DU">
+   </dxi-column>
+</dxi-column>
+<dxi-column caption="HC" alignment="center">
+   <dxi-column dataField="HC_ATIVO" alignment="center"
+      caption="Ativo">
+   </dxi-column>
+   <dxi-column dataField="HC_TRABALHO" alignment="center"
+      caption="Trab">
+   </dxi-column>
+   <dxi-column dataField="HC_ABS" alignment="center" 
+      caption="% ABS">
+   </dxi-column>
+   <dxi-column dataField="HC_FERIAS" alignment="center"
+      caption="Ferias">
+   </dxi-column>
+</dxi-column>
+<dxi-column caption="Consolidado" alignment="center">
+   <dxi-column dataField="LIG_HC" alignment="center"
+      caption="Lig/HC">
+   </dxi-column>
+   <dxi-column dataField="LIG_VENDA" alignment="center"
+      caption="Lig/Vd">
+   </dxi-column>
+   <dxi-column dataField="CONSOLIDADO_VENDA_REAL" alignment="center"
+      caption="Vd (Tt)">
+   </dxi-column>
+   <dxi-column dataField="TICKET_MEDIO" alignment="center"
+      caption="Tickt Md">
+   </dxi-column>
+</dxi-column>
+<dxi-column caption="Semana 1 (1-7)" alignment="center">
+   <dxi-column dataField="SEMANA_1_HC_TRABALHADO" alignment="center"
+      caption="HC Trab">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_1_LIG_HC" alignment="center"
+      caption="Lig/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_1_LIG_VENDA" alignment="center"
+      caption="Lig/Vd">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_1_VEN_HC" alignment="center"
+      caption="Vd/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_1_VENDA_DIA" alignment="center"
+      caption="Vd Dia">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_1_VENDA_TOTAL" alignment="center"
+      caption="Vd (Tt)">
+   </dxi-column>
+</dxi-column>
+<dxi-column caption="Semana 2 (8-14)" alignment="center">
+   <dxi-column dataField="SEMANA_2_HC_TRABALHADO" alignment="center"
+      caption="HC Trab">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_2_LIG_HC" alignment="center"
+      caption="Lig/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_2_LIG_VENDA" alignment="center"
+      caption="Lig/Vd">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_2_VEN_HC" alignment="center"
+      caption="Vd/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_2_VENDA_DIA" alignment="center"
+      caption="Vd Dia">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_2_VENDA_TOTAL" alignment="center"
+      caption="Vd (Tt)">
+   </dxi-column>
+</dxi-column>
+<dxi-column caption="Semana 3 (15-21)" alignment="center">
+   <dxi-column dataField="SEMANA_3_HC_TRABALHADO" alignment="center"
+      caption="HC Trab">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_3_LIG_HC" alignment="center"
+      caption="Lig/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_3_LIG_VENDA" alignment="center"
+      caption="Lig/Vd">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_3_VEN_HC" alignment="center"
+      caption="Vd/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_3_VENDA_DIA" alignment="center"
+      caption="Vd Dia">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_3_VENDA_TOTAL" alignment="center"
+      caption="Vd (Tt)">
+   </dxi-column>
+</dxi-column>
+<dxi-column caption="Semana 4 (22-28)" alignment="center">
+   <dxi-column dataField="SEMANA_4_HC_TRABALHADO" alignment="center"
+      caption="HC Trab">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_4_LIG_HC" alignment="center"
+      caption="Lig/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_4_LIG_VENDA" alignment="center"
+      caption="Lig/Vd">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_4_VEN_HC" alignment="center"
+      caption="Vd/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_4_VENDA_DIA" alignment="center"
+      caption="Vd Dia">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_4_VENDA_TOTAL" alignment="center"
+      caption="Vd (Tt)">
+   </dxi-column>
+</dxi-column>
+<dxi-column caption="Semana 5 (29-31)" alignment="center">
+   <dxi-column dataField="SEMANA_5_HC_TRABALHADO" alignment="center"
+      caption="HC Trab">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_5_LIG_HC" alignment="center"
+      caption="Lig/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_5_LIG_VENDA" alignment="center"
+      caption="Lig/Vd">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_5_VEN_HC" alignment="center"
+      caption="Vd/HC">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_5_VENDA_DIA" alignment="center"
+      caption="Vd Dia">
+   </dxi-column>
+   <dxi-column dataField="SEMANA_5_VENDA_TOTAL" alignment="center"
+      caption="Vd (Tt)">
+   </dxi-column>
+</dxi-column>
+<dxi-column
+   dataField="OPERACAO"
+   caption="Operação"
+   [groupIndex]="0"
+   fixed="left"
+   ></dxi-column>
+</dx-data-grid>

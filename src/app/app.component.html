@@ -1,0 +1,15 @@
+<div class="Container">
+  <div class="left-content">
+    <dx-tree-view
+      [dataSource]="menus"
+      displayExpr="titulo"
+      selectionMode="single"
+      [selectByClick]="true"
+      (onItemSelectionChanged)="navigateanotherPage($event)"
+    ></dx-tree-view>
+  </div>
+  
+  <div class="right-content">
+    <router-outlet></router-outlet>
+    </div>
+</div>
