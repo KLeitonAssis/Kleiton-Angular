@@ -4,11 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { SemanalComponent } from './semanal/semanal.component';
 import { MensalComponent } from './mensal/mensal.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
-  { path: 'Semanal', component: SemanalComponent },
-  { path: 'Mensal', component: MensalComponent },
+  { path: 'Login', component: LoginComponent },
 ];
 
 @NgModule({

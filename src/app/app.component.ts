@@ -10,13 +10,8 @@ import { DxTreeViewComponent } from 'devextreme-angular';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  @ViewChild("tree")
-  Menu = {} as Menu;
-  menus: Menu[] = []; 
-
-  public treeview = {} as DxTreeViewComponent;
-
-  constructor(private menuService: MenuService, private router: Router) {
+  
+  constructor(private router: Router) {
     
   }
 
@@ -24,18 +19,11 @@ export class AppComponent implements OnInit {
   
 
   ngOnInit() {
-    this.getMenus();
-    this.router.navigate(['']);
+    this.navigateanotherPage("Login")
   }
 
   public navigateanotherPage(e: any){
     /**window.location.href = <string>this.menus[(e.itemIndex)].caminho; */   
-    let routerLink: string = this.menus[e.itemIndex].caminho;
-     this.router.navigate([routerLink])
-}
-    getMenus() {
-      this.menuService.getMenu().subscribe((menus: Menu[]) => {
-        this.menus = menus; 
-      });
-      }
+     this.router.navigate([e])
+  }
 }

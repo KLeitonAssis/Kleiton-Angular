@@ -7,6 +7,7 @@ import { DxButtonComponent, DxButtonModule, DxDataGridModule, DxMenuModule, DxTr
 import { SemanalComponent } from './semanal/semanal.component';
 import { MensalComponent } from './mensal/mensal.component';
 import { RouterLink } from '@angular/router';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { RouterLink } from '@angular/router';
     AppComponent,
     SemanalComponent,
     MensalComponent,
+    LoginComponent,
     
   ],
   imports: [
