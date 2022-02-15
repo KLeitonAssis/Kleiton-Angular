@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
+  { path: '', redirectTo: 'Login', pathMatch: 'full'},
   { path: 'Login', component: LoginComponent },
  // { path: 'Semanal', component: SemanalComponent, canActivate: [AuthGuard] },
   { path: 'Mensal', component: MensalComponent},
