@@ -8,6 +8,7 @@ import { DxDataGridModule } from 'devextreme-angular';
 import { Workbook } from 'exceljs';
 import { ExcelDataGridCell, exportDataGrid } from 'devextreme/excel_exporter';
 import { saveAs } from 'file-saver';
+import { FuncionarioService } from '../services/funcionario.service';
 
 @Component({
   selector: 'app-Mensal',
@@ -23,12 +24,15 @@ export class MensalComponent{
   mensais: mensal[] = [];
 
 
-  constructor(private router: Router,private sgiService: SgiService){}
+  constructor(private router: Router,private sgiService: SgiService,private funcionarioService: FuncionarioService){}
 
   ngOnInit(){
-    
-   this.getMensal();
-
+    if (this.funcionarioService.islogged() == true) {
+      this.getMensal();
+    }
+    else {
+      this.router.navigate(["Login"])
+    }
   }
 
   getMensal() {

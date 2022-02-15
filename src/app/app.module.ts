@@ -8,6 +8,7 @@ import { SemanalComponent } from './semanal/semanal.component';
 import { MensalComponent } from './mensal/mensal.component';
 import { RouterLink } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
     DxTreeViewModule,
     DxDataGridModule,
