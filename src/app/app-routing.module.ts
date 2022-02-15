@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+//import {AuthGuard} './auth.guard'
 import { AppComponent } from './app.component';
 import { SemanalComponent } from './semanal/semanal.component';
 import { MensalComponent } from './mensal/mensal.component';
@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent },
+ // { path: 'Semanal', component: SemanalComponent, canActivate: [AuthGuard] },
+  { path: 'Mensal', component: MensalComponent},
 ];
 
 @NgModule({

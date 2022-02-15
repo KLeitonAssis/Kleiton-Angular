@@ -19,7 +19,6 @@ export class AppComponent implements OnInit {
   
 
   ngOnInit() {
-    this.navigateanotherPage("Login")
   }
 
   public navigateanotherPage(e: any){

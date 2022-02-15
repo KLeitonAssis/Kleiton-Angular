@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError,BehaviorSubject } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { sgi } from '../models/sgi';
 import { mensal } from '../models/mensal';
@@ -10,13 +10,20 @@ import { mensal } from '../models/mensal';
 })
 export class SgiService {
   url = 'http://10.206.106.96:3000'; // api rest fake
-  constructor(private httpClient: HttpClient) { }
+
+
+  constructor(private httpClient: HttpClient) { 
+
+  }
 
 
   
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
+  
+
+  
   // Obtem todos os dados
   getSgi(): Observable<sgi[]> {
     return this.httpClient.get<sgi[]>(this.url+"/semanal")

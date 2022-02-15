@@ -30,14 +30,13 @@ export class SemanalComponent{
 
   ngOnInit() {
    this.getSgis();
-   this.getFuncionario();
   }
 
-  getFuncionario() {
+  /*getFuncionario() {
       this.funcionarioService.getFuncionarios().subscribe((funcionarios: Funcionario[]) => {
         this.funcionarios = funcionarios;
       });
-  }
+  }*/
   getSgis() {
     this.sgiService.getSgi().subscribe((sgis: sgi[]) => {
       this.sgis = sgis; 
