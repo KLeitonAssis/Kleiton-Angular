@@ -14,21 +14,20 @@ export class LoginComponent implements OnInit {
   username:string = '';
   senha:string = '';
 
-  funcionario = {} as Funcionario;
-  funcionarios: Funcionario[] = [];
   constructor(private funcionarioService: FuncionarioService,private router: Router)
    {
-  }
+   }
 
   ngOnInit() {
    
   }
 
   loginUser() {
-    this.funcionarioService.login(this.username,this.senha).subscribe((funcionarios: Funcionario) => {
-      localStorage.setItem('currentUser',funcionarios.TokenFunc);
+    this.funcionarioService.login(this.username,this.senha).subscribe((funcionario: Funcionario) => {
+      localStorage.setItem('currentUser',funcionario.TokenFunc);
+      localStorage.setItem('nomeUser',funcionario.Nome_Abreviado);
       if (this.funcionarioService.islogged() == true) {
-        this.router.navigate(["Mensal"])
+        this.router.navigateByUrl('/Home', { state: funcionario });
       }
     })
     this.username = "";
