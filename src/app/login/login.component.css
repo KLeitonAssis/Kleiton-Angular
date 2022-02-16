@@ -1,0 +1,19 @@
+.card{
+    border: 2px solid #000000;
+    
+}
+
+.card-header{
+    color: rgb(1, 100, 1);
+    font-weight: bold;
+}
+
+.form-group{
+    color: rgb(1, 100, 1);
+    font-weight: bold;
+	
+}
+
+.background {
+	width: 100%;
+}
