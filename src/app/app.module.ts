@@ -9,6 +9,7 @@ import { MensalComponent } from './mensal/mensal.component';
 import { RouterLink } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     SemanalComponent,
     MensalComponent,
     LoginComponent,
+    HomeComponent,
     
   ],
   imports: [
