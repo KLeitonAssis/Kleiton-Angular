@@ -10,19 +10,14 @@ import { Menu } from '../models/menu';
 })
 export class HomeComponent implements OnInit {
   funcionarios = {} as Funcionario;
-  nome: string = '';
-  
+  nome: any = '';
   
   constructor(private router: Router) { 
     console.log(this.router.getCurrentNavigation()?.extras.state);
   }
 
-  ngOnInit(): void {
-    this.funcionarios=history.state;
-  }
-
-  Semanal() {
-    this.router.navigate(["Mensal"]);
+  ngOnInit() {
+    this.nome = localStorage.getItem('nomeUser');
   }
 
 }

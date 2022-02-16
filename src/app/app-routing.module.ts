@@ -10,12 +10,15 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'Login', pathMatch: 'full'},
- // { path: 'Login', component: LoginComponent },
+  { path: 'Login', component: LoginComponent },
  // { path: 'Semanal', component: SemanalComponent, canActivate: [AuthGuard] },
   //{ path: 'Mensal', component: MensalComponent},
   { path: 'Home', component: HomeComponent, children: [
     {
       path: 'Mensal', component: MensalComponent
+    },
+    {
+      path: 'Semanal', component: SemanalComponent
     },
   ]},
 ];

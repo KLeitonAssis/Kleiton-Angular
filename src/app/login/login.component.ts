@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   loginUser() {
     this.funcionarioService.login(this.username,this.senha).subscribe((funcionario: Funcionario) => {
       localStorage.setItem('currentUser',funcionario.TokenFunc);
+      localStorage.setItem('nomeUser',funcionario.Nome_Abreviado);
       if (this.funcionarioService.islogged() == true) {
         this.router.navigateByUrl('/Home', { state: funcionario });
       }
