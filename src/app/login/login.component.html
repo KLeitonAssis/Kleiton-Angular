@@ -1,24 +1,23 @@
 <div class="col-md-6 offset-md-3 mt-5">
-    <div class="card">
-        <h4 class="card-header">JURIDICO WEB</h4>
-        <img src="\assets\img\logo.jpg" class="card-img-top">
-        <div class="card-body">
-            <div class="form-group">
+        <div class="card">
+            <h4 class="card-header">Juridico</h4>
+            <div class="card-header">
+            <img src="\assets\img\logo.jpg" class="card-img-top">
+        </div>
+            <div class="card-body">
                 <div class="form-group">
-                    <label for="username">Usúario</label>
-                    <input id="username" name="username" [(ngModel)]="username" class="form-control" required="true" />
+                    <div class="form-group">
+                        <label for="username">Usúario</label>
+                        <input id="username" type="text" name="username" [(ngModel)]="username" class="form-control" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" [(ngModel)]="senha"  class="form-control" />
+                    </div>
+                    <button type="submit" (click)="loginUser()" class="btn btn-success">
+                        Entrar
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" [(ngModel)]="senha"  class="form-control" />
-                </div>
-                <button type="submit" (click)="loginUser()" class="btn btn-success">
-                    Entrar
-                </button>
             </div>
         </div>
     </div>
-</div>
-<body>
-    <img class="background" src="\assets\img\background.JPG">
-</body>

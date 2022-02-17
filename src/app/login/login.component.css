@@ -4,9 +4,14 @@
     
 }
 
+button {
+    margin-top: 1%;
+}
+
 .card-header{
     color: rgb(1, 100, 1);
     font-weight: bold;
+    text-align: center;
 }
 
 .form-group{
@@ -24,7 +29,7 @@
 
 
 .card-img-top{
-    position: static;
-    width: 67%;
+    max-width: 35%;  
+    height: auto;  
     
 }
