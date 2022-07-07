@@ -1,0 +1,201 @@
+<div class="container mt-4">
+    <form class="row">
+                
+        <div class="col-2">
+            <div class="form-check">
+                <input [(ngModel)]="ProcessoAnalitico" class="form-check-input" type="radio"  name="RadioRelatorio" id="ProcessoAnalitico" value="1"
+                (change)="getRelatorioCampo(ProcessoAnalitico)" >
+                <label class="form-check-label" for="ProcessoAnalitico">
+                    Processo Analítico
+                </label>
+            </div> 
+            
+            <div class="form-check">
+                <input [(ngModel)]="ProcessoSintetico" class="form-check-input" type="radio" name="RadioRelatorio" id="ProcessoSintetico" value="8"
+                (change)="getRelatorioCampo(ProcessoSintetico)">
+                <label class="form-check-label" for="ProcessoSintetico">
+                    Processo Sintético
+                </label>
+            </div>  
+            <div class="form-check">
+                <input [(ngModel)]="Agenda" class="form-check-input" type="radio" name="RadioRelatorio" id="Agenda" value="2"
+                (change)="getRelatorioCampo(Agenda)">
+                <label class="form-check-label" for="Agenda">
+                    Agenda
+                </label>
+            </div>
+        </div>
+            
+        <div class="col-2">
+            <div class="form-check">
+                <input [(ngModel)]="Testemunha" class="form-check-input" type="radio" name="RadioRelatorio" id="Testemunha" value="3"
+                (change)="getRelatorioCampo(Testemunha)">
+                <label class="form-check-label" for="Testemunha">
+                    Testemunha
+                </label>
+            </div>  
+            <div class="form-check">
+                <input [(ngModel)]="Pedido" class="form-check-input" type="radio" name="RadioRelatorio" id="Pedido" value="4"
+                (change)="getRelatorioCampo(Pedido)">
+                <label class="form-check-label" for="Pedido">
+                    Pedido
+                </label>
+            </div>  
+            <div class="form-check">
+                <input [(ngModel)]="Carta" class="form-check-input" type="radio" name="RadioRelatorio" id="Carta" value="6"
+                (change)="getRelatorioCampo(Carta)">
+                <label class="form-check-label" for="Carta">
+                    Carta
+                </label>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="form-check">
+                <input [(ngModel)]="RoboCEF" class="form-check-input" type="radio" name="RadioRelatorio" id="RoboCEF" value="7"
+                (change)="getRelatorioCampo(RoboCEF)">
+                <label class="form-check-label" for="RoboCEF">
+                    Robô CEF
+                </label>
+            </div>  
+
+            <div class="form-check">
+                <input [(ngModel)]="Custo" class="form-check-input" type="radio" name="RadioRelatorio" id="Custo" value="5"
+                (change)="getRelatorioCampo(Custo)">
+                <label class="form-check-label" for="Custo">
+                    Custo
+                </label>
+            </div> 
+
+            <div class="form-check">
+                <input [(ngModel)]="PedidoAnalitico" class="form-check-input" type="radio" name="RadioRelatorio" id="PedidoAnalitico" value="9"
+                (change)="getRelatorioCampo(PedidoAnalitico)">
+                <label class="form-check-label" for="PedidoAnalitico">
+                    Pedido Analítico 
+                </label>
+            </div> 
+            
+        </div>
+
+        <div class="col">
+            <div class="form-check">
+                <input #Filtrado class="form-check-input" type="radio" name="RadioFiltro" id="Filtrado"
+                 value="0" (click)="ativaNav(Filtrado.value)">
+                <label class="form-check-label" for="Tudo">
+                    Tudo
+                </label>
+            </div>
+
+            <div *ngIf="radioFiltro" class="tab-content mt-1" id="nav-tabContent">
+                <div class="form-check">
+                    <input #Filtrado class="form-check-input" type="radio" name="RadioFiltro" 
+                    id="Filtrado" value="1" (click)="ativaNav(Filtrado.value)">
+                    <label class="form-check-label" for="Filtrado">
+                        Filtro
+                    </label>
+                </div> 
+            </div>
+        </div>
+    </form>
+
+    <div *ngIf="Filtro" class="tab-content mt-4" id="nav-tabContent">
+
+        <div class="row">
+        <div class="col">
+            <mat-form-field appearance="outline" [style.width.%]=40>
+                <mat-label>Campo</mat-label>
+                <mat-select id="codigoCampo"> 
+                <mat-option  *ngFor="let item of Relatorio" (onSelectionChange)="getRelatorioCodicao(item.codigo,item.descricao)">
+                    {{item.descricao}} 
+                </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            
+        </div>
+
+        <div *ngIf="CondiGrid" class="tab-content mt-2" id="nav-tabContent">
+            <div class="container d-flex justify-content-center">
+                <div class="row">
+                    <h2>{{tit}}</h2>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="CondiGrid" class="tab-content mt-4" id="nav-tabContent">
+            <div class="row">
+                <div class="col">
+
+                    <div *ngIf="CondicaoDrop" class="tab-content" id="nav-tabContent">
+                            <mat-form-field appearance="outline" [style.width.%]=60>
+                                <mat-label>Condição</mat-label>
+                                    <mat-select [(ngModel)]="condi" id="condi" [(value)]="Condicao.descricao">
+                                        <mat-option [value]="items.descricao" *ngFor="let items of Condicao" >
+                                            {{items.descricao}}
+                                        </mat-option>
+                                    </mat-select>
+                            </mat-form-field>
+                    </div>
+                    
+                    <div *ngIf="CondicaoData" class="tab-content" id="nav-tabContent">
+                        <div class="col">
+                        <label>Data início:</label><br>
+                        <input id="dataIni" type="date" [(ngModel)]="condiDataIni">
+                        </div>
+                        <div class="col">
+                        <label>Data Fim:</label><br>
+                        <input id="dataFim" type="date" [(ngModel)]="condiDataFim">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div *ngIf="CondicaoDrop" class="tab-content" id="nav-tabContent">
+                        <div class="row d-flex justify-content-center">
+                            <button type="button" class="btn btn-relatorio" [style.width.%]=20 (click)="enviarGrid(condi)">----></button>
+                        </div>
+                    </div>
+
+                    <div *ngIf="CondicaoData" class="tab-content" id="nav-tabContent">
+                        <div class="row d-flex justify-content-center">
+                            <button type="button" class="btn btn-relatorio" [style.width.%]=20 (click)="enviarGridDta(condiDataIni,condiDataFim)">----></button>
+                        </div>
+                    </div>
+                    
+                    <div class="row d-flex justify-content-center mt-2">
+                        <button type="button" class="btn btn-relatorio" [style.width.%]=20 (click)="apagarParam()"><----</button>
+                    </div>
+                </div>
+
+                <div class="col">
+
+                <select class="form-select border border-success" multiple aria-label="multiple select example">
+                    <option value="0">{{this.param[0]}}</option>
+                    <option value="1">{{this.param[1]}}</option>
+                    <option value="2">{{this.param[2]}}</option>
+                    <option value="3">{{this.param[3]}}</option>
+                    <option value="4">{{this.param[4]}}</option>
+                    <option value="5">{{this.param[5]}}</option>
+                    <option value="6">{{this.param[6]}}</option>
+                    <option value="7">{{this.param[7]}}</option>              
+                    <option value="8">{{this.param[8]}}</option>              
+                    <option value="9">{{this.param[9]}}</option>              
+                    <option value="10">{{this.param[10]}}</option>              
+                     </select>
+
+
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    </div>
+    <div class="row mt-4">
+        <div class="d-grid gap-2 col-3  mt-6">
+            <button type="button" class="btn btn-relatorio" (click)="ExportarExcel()">Excel</button>
+        </div>
+    </div>
+</div>   
+    
+  

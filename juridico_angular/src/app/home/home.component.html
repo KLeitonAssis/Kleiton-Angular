@@ -1,0 +1,56 @@
+<div class="wrapper">
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/img/tmkt.png" width="60px" height="60px"><label>       Juridico</label>
+        </div>
+        <ul class="list-unstyled components">
+            <img class="img-profile rounded-circle img"
+                src="assets/img/undraw_profile.svg">
+            <span class="d-lg-inline text-gray-600 small">{{nome}}</span><br><br>
+        <li>
+            <a  routerLink="Cadastro" routerLinkActive="active">Incluir/Editar Processo </a>
+        </li>
+        <li>
+            <a  routerLink="Relatorio" routerLinkActive="active">Relatório </a>
+        </li>
+        <li>
+            <a  routerLink="Agenda" routerLinkActive="active">Agenda </a>
+        </li>
+        <li>
+            <a  routerLink="Mensal" routerLinkActive="active">Importar Arquivos </a>
+        </li>
+        <li>
+            <a  routerLink="Acesso" routerLinkActive="active">Acesso </a>
+        </li>
+        <li>
+            <a  routerLink="Configuracoes" routerLinkActive="active" >Configurações </a>
+        </li>
+        <li>
+            <a  href='' data-toggle = 'modal' data-target="#modalSair" routerLinkActive="active">Sair </a>
+        </li>
+    </ul>
+    </nav>
+    <div id="content">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSair" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" >Sair</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja sair?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+          <button type="button" class="btn btn-primary" (click)="Loggout()" data-dismiss="modal">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,1087 @@
+<div class="row">
+  <div class="form-group col-md-1">
+    <button mat-fab color="Basic" matTooltip="Exibir dados do processo na FAC">
+      <mat-icon>person</mat-icon>
+    </button>
+  </div>
+  <div class="form-group col-md-3">
+    <mat-form-field appearance="outline" [style.width.%]=100>
+      <mat-label>Número</mat-label>
+      <input #NroProcessoPro matInput placeholder="" id="nroProcesso" [(ngModel)]="nroProcesso"
+        (change)="getProcesso(nroProcesso,'PRO_NROPROCESSO')">
+    </mat-form-field>
+  </div>
+  <div class="form-group col-md-2">
+    <mat-form-field appearance="outline" [style.width.%]=70>
+      <mat-label>Matrícula</mat-label>
+      <input matInput placeholder="" [(ngModel)]="processo.Matricula">
+    </mat-form-field>
+  </div>
+  <div class="form-group col-md-5">
+    <mat-form-field appearance="outline" [style.width.%]=80>
+      <mat-label>Nome</mat-label>
+      <input #ReclamantePro matInput placeholder="" [(ngModel)]="processo.Reclamante">
+    </mat-form-field>
+  </div>
+</div>
+<div class="form-group col-md-12">
+  <br />
+</div>
+<nav>
+  <div  class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-processo-tab" data-bs-toggle="tab" data-bs-target="#nav-processo"
+      type="button" role="tab" aria-controls="nav-processo" aria-selected="true">Processo</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-agenda-tab" data-bs-toggle="tab" data-bs-target="#nav-agenda" type="button"
+      role="tab" aria-controls="nav-agenda" aria-selected="false">Agenda</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-testemunha-tab" data-bs-toggle="tab" data-bs-target="#nav-testemunha" type="button"
+      role="tab" aria-controls="nav-testemunha" aria-selected="false">Testemunha</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-pedido-tab" data-bs-toggle="tab" data-bs-target="#nav-pedido" type="button"
+      role="tab" aria-controls="nav-pedido" aria-selected="false">Pedido</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-custos-tab" data-bs-toggle="tab" data-bs-target="#nav-custos" type="button"
+      role="tab" aria-controls="nav-custos" aria-selected="false">Custos</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-encargos-tab" data-bs-toggle="tab" data-bs-target="#nav-encargos" type="button"
+      role="tab" aria-controls="nav-encargos" aria-selected="f alse">Encargos</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-despesas-tab" data-bs-toggle="tab" data-bs-target="#nav-despesas" type="button"
+      role="tab" aria-controls="nav-despesas" aria-selected="false">Despesas</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-condenacao-tab" data-bs-toggle="tab" data-bs-target="#nav-condenacao" type="button"
+      role="tab" aria-controls="nav-condenacao" aria-selected="false">Condenação</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-historico-tab" data-bs-toggle="tab" data-bs-target="#nav-historico" type="button"
+      role="tab" aria-controls="nav-historico" aria-selected="false">Histórico</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-status-tab" data-bs-toggle="tab" data-bs-target="#nav-status" type="button"
+      role="tab" aria-controls="nav-status" aria-selected="false">Status</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-disciplinar-tab" data-bs-toggle="tab" data-bs-target="#nav-disciplinar"
+      type="button" role="tab" aria-controls="nav-disciplinar" aria-selected="false">Disciplinar</button>
+    <button *ngIf="processo.NroProcesso" class="nav-link" id="nav-chefia-tab" data-bs-toggle="tab" data-bs-target="#nav-chefia" type="button"
+      role="tab" aria-controls="nav-chefia" aria-selected="false">Chefia</button>
+  </div>
+</nav>
+<div *ngIf="nroProcesso" class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-processo" role="tabpanel" aria-labelledby="nav-processo-tab">
+    <button mat-button [style.width.px]=90 matTooltip="Consultar Processo">Consultar</button>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field appearance="outline" [style.width.%]=30>
+          <mat-label>Data Distribuição</mat-label>
+
+          <input #DtDistribuicaoPro matInput placeholder="dd/MM/YYYY" type="date"
+            [value]="this.pipe.transform(processo.DtDistribuicao, 'yyyy-MM-dd')">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field appearance="outline" [style.width.%]=40>
+          <mat-label>Competência</mat-label>
+          <input #CompetanciaPro matInput [(ngModel)]="processo.Competancia">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field appearance="outline" [style.width.%]=50>
+          <mat-label>Categoria</mat-label>
+          <mat-select #CategoriaPro [(value)]="processo.Categoria">
+            <mat-option *ngFor="let item of categorias" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field appearance="outline" [style.width.%]=80>
+          <mat-label>1° Reu</mat-label>
+          <input #PrimeiroReuPro matInput [value]="processo.PrimeiroReu">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <mat-form-field appearance="outline" [style.width.%]=25>
+          <mat-label>Status</mat-label>
+          <mat-select #TpProcessoPro [(value)]="processo.TpProcesso">
+            <mat-option *ngFor="let item of status" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-6">
+        <mat-form-field appearance="outline" [style.width.%]=80>
+          <mat-label>2° Reu</mat-label>
+          <input #SegundoReuPro matInput [value]="processo.SegundoReu">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Fase</mat-label>
+          <mat-select #StatusPro [(value)]="processo.Status">
+            <mat-option *ngFor="let item of fase" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Data</mat-label>
+          <input #DtStatusPro matInput placeholder="DD/MM/YYYY" type="date"
+            [value]="this.pipe.transform(processo.DtStatus, 'yyyy-MM-dd')">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2"></div>
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Advogado</mat-label>
+          <input #Advogado_ReclamantePro matInput [value]="processo.Advogado_Reclamante">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=60>
+          <mat-label>OAB</mat-label>
+          <input #OABAdvogadoReclamantePro matInput [value]="processo.OABAdvogadoReclamante">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Motivo Processo</mat-label>
+          <mat-select #ModPagamentoPro [(value)]="processo.ModPagamento">
+            <mat-option *ngFor="let item of motivacaoPagamento" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-3"></div>
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Produto</mat-label>
+          <mat-select #ProdutoPro [(value)]="processo.Produto">
+            <mat-option *ngFor="let item of produto" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=110 floatLabel="always">
+          <mat-label>Valor Pedido Reclamante</mat-label>
+          <input #VlrCausaPro matInput [(ngModel)]="valorCausa" mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-4"></div>
+      <div class="form-group col-md-5">
+        <mat-form-field appearance="outline" [style.width.%]=90>
+          <mat-label>Escritório</mat-label>
+          <mat-select #EscritorioAdvocaciaPro [(value)]="processo.Escritorio">
+            <mat-option *ngFor="let item of escritorio" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Valor Previsto Empresa</mat-label>
+          <input #VlrEstimativaProcessoPro matInput [(ngModel)]="valorEstimativaP" mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-4"></div>
+      <mat-form-field appearance="outline" [style.width.%]=23>
+        <mat-label>Advogado Empresa</mat-label>
+        <mat-select #AdvogadoTMKTPro [(value)]="processo.AdvogadoTMKT">
+          <mat-option *ngFor="let item of advogadoEmpresa" [value]="item.ID">
+            {{item.Descricao}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.%]=12>
+        <mat-label>CPF</mat-label>
+        <input #CPFAdvogadoEmpresaPro matInput [value]="processo.CPFAdvogadoEmpresa">
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.%]=10>
+        <mat-label>OAB</mat-label>
+        <input #OABAdvogadoEmpresaPro matInput [value]="processo.OABAdvogadoEmpresa">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=50>
+          <mat-label>Vara</mat-label>
+          <input #VaraPro matInput [value]="processo.Vara">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-4"></div>
+      <mat-form-field appearance="outline" [style.width.%]=23>
+        <mat-label>Advogado Executor</mat-label>
+        <mat-select #AdvogadoExecutorPro [(value)]="processo.AdvogadoExecutor">
+          <mat-option *ngFor="let item of advogadoEmpresa" [value]="item.ID">
+            {{item.Descricao}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.%]=12>
+        <mat-label>CPF</mat-label>
+        <input #CPFAdvogadoExecutorPro matInput value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.%]=10>
+        <mat-label>OAB</mat-label>
+        <input #OABAdvogadoExecutorPro matInput value="">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.%]=30>
+          <mat-label>Comarca</mat-label>
+          <input #ComarcaPro matInput [value]="processo.Comarca">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-3"></div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Grau de Risco</mat-label>
+          <mat-select #RiscoPro [(value)]="processo.Risco">
+            <mat-option *ngFor="let item of grauRisco" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-3">
+        <mat-label>Revisado</mat-label>
+        <mat-radio-group aria-label="Revisado" [style.width.%]=20>
+          <mat-radio-button #RevisadoPro value="1" [checked]="varSelectRevisadoSim">Sim</mat-radio-button>
+          <mat-radio-button #RevisadoPro value="2" [checked]="varSelectRevisadoNao">Não</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline" [style.width.%]=16.6>
+          <mat-label>Site</mat-label>
+          <mat-select #SitePro [(value)]="processo.Site">
+            <mat-option *ngFor="let item of site" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="form-group col-md-4"></div>
+        <div class="form-group col-md-2">
+          <mat-form-field appearance="outline" [style.width.%]=100>
+            <mat-label>Encerrado</mat-label>
+            <mat-select #CodEncerradoPro [(value)]="processo.CodEncerrado">
+              <mat-option *ngFor="let item of encerrado" [value]="item.ID">
+                {{item.Descricao}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-3">
+          <mat-form-field appearance="outline" [style.width.%]=60>
+            <mat-label>Data</mat-label>
+            <input #DtEncerradoPro matInput placeholder="DD/MM/YYYY" type="date"
+              [value]="this.pipe.transform(processo.DtEncerrado, 'yyyy-MM-dd')">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Observação</mat-label>
+          <textarea #ObservacaoPro matInput [value]="processo.Observacao" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+            cdkAutosizeMaxRows="3"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1">
+        <button (click)="insereProcesso(ReclamantePro.value, NroProcessoPro.value, VaraPro.value, ComarcaPro.value,
+        DtDistribuicaoPro.value, TpProcessoPro.value, CategoriaPro.value, SitePro.value, DtStatusPro.value,
+        StatusPro.value, VlrCausaPro.value, VlrEstimativaProcessoPro.value, AdvogadoTMKTPro.value, 
+        AdvogadoExecutorPro.value, RiscoPro.value, ProdutoPro.value, ObservacaoPro.value, ModPagamentoPro.value,
+        CodEncerradoPro.value, DtEncerradoPro.value, PrimeiroReuPro.value, SegundoReuPro.value, RevisadoPro.value,
+        CompetanciaPro.value, CPFAdvogadoEmpresaPro.value, OABAdvogadoEmpresaPro.value, CPFAdvogadoExecutorPro.value,
+        OABAdvogadoExecutorPro.value, EscritorioAdvocaciaPro.value,Advogado_ReclamantePro.value,OABAdvogadoReclamantePro.value)" mat-button [style.width.px]=90 matTooltip="Clique para Alterar o Processo Atual">Alterar</button>
+      </div>
+      <div class="form-group col-md-1">
+        <button mat-button [style.width.px]=90 matTooltip="Clique para Excluir o Processo Atual">Excluir</button>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-agenda" role="tabpanel" aria-labelledby="nav-agenda-tab">
+    <br>
+      <div class="row">
+        <div class="form-group col-md-6">
+          <mat-form-field appearance="outline" [style.width.%]=40>
+            <mat-label>Tipo Compromisso</mat-label>
+            <mat-select  #CbtipoCompromisso>
+              <mat-option *ngFor="let item of tipoCompromisso"  [value]="item.ID">
+                {{item.Descricao}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Data/Hora Agenda</mat-label>
+          <input matInput #dataHora placeholder="DD/MM/YYYY" type="datetime-local">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=90>
+          <mat-label>Preposto</mat-label>
+          <input matInput #preposto value="">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=50>
+          <mat-label>Em D</mat-label>
+          <mat-select #cbEmD>
+            <mat-option *ngFor="let item of emD" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-radio-group  [(ngModel)]="periodoAgenda" (change)="radioAgenda(periodoAgenda)">
+          <mat-radio-button #rdPeriodo value=1>Dia Todo</mat-radio-button>
+          <mat-radio-button #rdPeriodo value=2>No Horário</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=40>
+          <mat-label></mat-label>
+          <mat-select #TempoAgenda>
+            <mat-option *ngFor="let item of comboAgenda" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1">
+        <mat-form-field appearance="outline" [style.width.%]=200>
+          <mat-label>Status</mat-label>
+          <mat-select #statusAgenda>
+            <mat-option  *ngFor="let item of statusAudiencia" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-checkbox #lembreteMail ng-checked="true" class="example-margin">Lembrar por Email</mat-checkbox>
+      </div>
+      <div class="form-group col-md-8"></div>
+      <div class="form-group col-md-2">
+        <button (click)="insereAudiencia(dataHora.value,statusAgenda.value,CbtipoCompromisso.value,lembreteMail.value,periodoAgenda,TempoAgenda.value,cbEmD.value)" mat-button [style.width.%]=60>Incluir
+          <mat-icon>add_task</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;"></th>
+            <th scope="col" style="text-align: center;">Codigo</th>
+            <th scope="col" style="text-align: center;">Data Compromisso</th>
+            <th scope="col" style="text-align: center;">TP Agenda</th>
+            <th scope="col" style="text-align: center;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of audienciaGrid">
+            <td>
+              <button mat-mini-fab color="Basic" matTooltip="Excluir Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-mini-fab color="Basic" matTooltip="Editar Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+            <td style="text-align: center;">{{items.codigo}}</td>
+            <td style="text-align: center;">{{items.dataCompromisso}}</td>
+            <td style="text-align: center;">{{items.tpAgenda}}</td>
+            <td style="text-align: center;">{{items.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-testemunha" role="tabpanel" aria-labelledby="nav-testemunha-tab">
+    <br>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.%]=80>
+          <mat-label>Tipo de Testemunha</mat-label>
+          <mat-select #tpTestemunha>
+            <mat-option *ngFor="let item of testemunha" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-4">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Nome</mat-label>
+          <input #nomeTestemunha matInput value="">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <mat-form-field appearance="outline" [style.width.%]=7>
+        <mat-label>DDD</mat-label>
+        <input #ddd matInput value="">
+      </mat-form-field>
+      <mat-form-field appearance="outline" [style.width.%]=13>
+        <mat-label>Fone</mat-label>
+        <input #fone matInput value="">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <mat-form-field appearance="outline" [style.width.%]=10>
+        <mat-label>Matricula</mat-label>
+        <input #matriculaTestemunha matInput value="">
+      </mat-form-field>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-1">
+        <mat-form-field appearance="outline" [style.width.%]=200>
+          <mat-label>CPF</mat-label>
+          <input #cpf matInput value="">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-1">
+        <mat-form-field appearance="outline" [style.width.%]=200>
+          <mat-label>RG</mat-label>
+          <input #rg matInput value="">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Testemunho</mat-label>
+          <mat-select #Testemunho>
+            <mat-option *ngFor="let item of testemunho" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-1">
+        <button (click)="insereTestemunha(tpTestemunha.value,nomeTestemunha.value,cpf.value,rg.value,ddd.value,fone.value,Testemunho.value,matriculaTestemunha.value)" mat-button [style.width.%]=125>Incluir
+          <mat-icon>add_task</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;">Codigo</th>
+            <th scope="col" style="text-align: center;">Tp Testemunha</th>
+            <th scope="col" style="text-align: center;">Nome Testemunha</th>
+            <th scope="col" style="text-align: center;">CPF</th>
+            <th scope="col" style="text-align: center;">RG</th>
+            <th scope="col" style="text-align: center;">DDD</th>
+            <th scope="col" style="text-align: center;">Fone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of testemunhaGrid">
+            <td style="text-align: center;">{{items.codigo}}</td>
+            <td style="text-align: center;">{{items.tpTestemunha}}</td>
+            <td style="text-align: center;">{{items.nomeTestemunha}}</td>
+            <td style="text-align: center;">{{items.cpf}}</td>
+            <td style="text-align: center;">{{items.rg}}</td>
+            <td style="text-align: center;">{{items.ddd}}</td>
+            <td style="text-align: center;">{{items.fone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-pedido" role="tabpanel" aria-labelledby="nav-pedido-tab">
+    <br>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.%]=70>
+          <mat-label>Pedido</mat-label>
+          <mat-select #Pedido>
+            <mat-option *ngFor="let item of pedido" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" [style.width.%]=70>
+          <mat-label>Valor Pedido</mat-label>
+          <input #ValorPedido matInput value="" mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+        <button (click)="inserePedido(Pedido.value,ValorPedido.value,PrimeiraIns.value,PrimeiraPrev.value,PrimeiraDecisao.value,SegundaIns.value, SegundaPrev.value, SegundaDecisao.value, TerceiraIns.value, TerceiraPrev.value, TerceiraDecisao.value, PrimeiraInsDT.value, SegundaInsDT.value, TerceiraInsDT.value)" mat-button [style.width.%]=40>Incluir
+          <mat-icon>add_task</mat-icon>
+        </button>
+      </div>
+      <div class="form-group col-md-3">
+        <mat-card>
+          <mat-form-field appearance="outline" [style.width.%]=70>
+            <mat-label>1ª. Instância</mat-label>
+            <mat-select #PrimeiraIns>
+              <mat-option *ngFor="let item of instancia1" [value]="item.ID">
+                {{item.Descricao}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field appearance="outline" [style.width.px]=100>
+                  <mat-label>Vlr Previsto</mat-label>
+                  <input #PrimeiraPrev matInput value="" mask="separator.2" thousandSeparator=".">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" [style.width.px]=100>
+                  <mat-label>Vlr Decisão</mat-label>
+                  <input #PrimeiraDecisao matInput value="" mask="separator.2" thousandSeparator=".">
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <mat-form-field appearance="outline" [style.width.%]=80>
+            <mat-label>Data</mat-label>
+            <input #PrimeiraInsDT matInput placeholder="DD/MM/YYYY" type="date">
+          </mat-form-field>
+        </mat-card>
+      </div>
+      <div class="form-group col-md-3">
+        <mat-card>
+          <mat-form-field appearance="outline" [style.width.%]=70>
+            <mat-label>2ª. Instância</mat-label>
+            <mat-select #SegundaIns>
+              <mat-option *ngFor="let item of instancia2" [value]="item.ID">
+                {{item.Descricao}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field appearance="outline" [style.width.px]=100>
+                  <mat-label>Vlr Previsto</mat-label>
+                  <input #SegundaPrev matInput value="" mask="separator.2" thousandSeparator=".">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" [style.width.px]=100>
+                  <mat-label>Vlr Decisão</mat-label>
+                  <input #SegundaDecisao matInput value="" mask="separator.2" thousandSeparator=".">
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <mat-form-field appearance="outline" [style.width.%]=80>
+            <mat-label>Data</mat-label>
+            <input #SegundaInsDT matInput placeholder="DD/MM/YYYY" type="date">
+          </mat-form-field>
+        </mat-card>
+      </div>
+      <div class="form-group col-md-3">
+        <mat-card>
+          <mat-form-field appearance="outline" [style.width.%]=70>
+            <mat-label>3ª. Inst/Homol</mat-label>
+            <mat-select #TerceiraIns>
+              <mat-option *ngFor="let item of instancia3" [value]="item.ID">
+                {{item.Descricao}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <table class="example-full-width" cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field appearance="outline" [style.width.px]=100>
+                  <mat-label>Vlr Previsto</mat-label>
+                  <input #TerceiraPrev matInput value="" mask="separator.2" thousandSeparator=".">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="outline" [style.width.px]=100>
+                  <mat-label>Vlr Decisão</mat-label>
+
+                  <input #TerceiraDecisao matInput value="" mask="separator.2" thousandSeparator=".">
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <mat-form-field appearance="outline" [style.width.%]=80>
+            <mat-label>Data</mat-label>
+            <input #TerceiraInsDT matInput placeholder="DD/MM/YYYY" type="date">
+          </mat-form-field>
+        </mat-card>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;">ㅤㅤ</th>
+            <th scope="col" style="text-align: center;">Codigo</th>
+            <th scope="col" style="text-align: center;">Pedido</th>
+            <th scope="col" style="text-align: center;">Vlr Pedido</th>
+            <th scope="col" style="text-align: center;">1ª Inst</th>
+            <th scope="col" style="text-align: center;">1ª Prev</th>
+            <th scope="col" style="text-align: center;">1ª Decisão</th>
+            <th scope="col" style="text-align: center;">2ª Inst</th>
+            <th scope="col" style="text-align: center;">2ª Prev</th>
+            <th scope="col" style="text-align: center;">2ª Decisão</th>
+            <th scope="col" style="text-align: center;">3ª Inst</th>
+            <th scope="col" style="text-align: center;">3ª Prev</th>
+            <th scope="col" style="text-align: center;">3ª Decisão</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of pedidoGrid">
+            <td>
+              <button mat-mini-fab color="Basic" matTooltip="Excluir Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-mini-fab color="Basic" matTooltip="Editar Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+            <td style="text-align: center;">{{items.codigo}}</td>
+            <td style="text-align: center;">{{items.pedido}}</td>
+            <td style="text-align: center;">{{items.vlrPedido}}</td>
+            <td style="text-align: center;">{{items.primeiraInst}}</td>
+            <td style="text-align: center;">{{items.primeiraPrev}}</td>
+            <td style="text-align: center;">{{items.primeiraDecisao}}</td>
+            <td style="text-align: center;">{{items.segundaInst}}</td>
+            <td style="text-align: center;">{{items.segundaPrev}}</td>
+            <td style="text-align: center;">{{items.segundaDecisao}}</td>
+            <td style="text-align: center;">{{items.terceiraInst}}</td>
+            <td style="text-align: center;">{{items.terceiraPrev}}</td>
+            <td style="text-align: center;">{{items.terceiraDecisao}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-custos" role="tabpanel" aria-labelledby="nav-custos-tab">
+    <br>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Custo</mat-label>
+          <mat-select #tpCusto>
+            <mat-option *ngFor="let item of custo" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=90>
+          <mat-label>Id Dep./Pagto</mat-label>
+          <input #idDepositoPagamento matInput value="">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=90>
+          <mat-label>Data Pagto</mat-label>
+          <input #dtPagamento matInput placeholder="DD/MM/YYYY" type="date">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=80>
+          <mat-label>Valor</mat-label>
+          <input #valor matInput value="" mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1">
+        <mat-form-field appearance="outline" [style.width.%]=230>
+          <mat-label>Instancia</mat-label>
+          <mat-select #instancia>
+            <mat-option *ngFor="let item of instanciaCusto" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <div class="form-group col-md-2">
+          <mat-form-field appearance="outline" [style.width.%]=150>
+            <mat-label>Descrição</mat-label>
+            <input #descricaoCusto matInput value="">
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-8"></div>
+        <div class="form-group col-md-2">
+          <button (click)="insereCusto(tpCusto.value,valor.value,descricaoCusto.value,idDepositoPagamento.value, dtPagamento.value, instancia.value)" mat-button [style.width.%]=60>Incluir
+            <mat-icon>add_task</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;"></th>
+            <th scope="col" style="text-align: center;">Codigo</th>
+            <th scope="col" style="text-align: center;">Tipo de Custo</th>
+            <th scope="col" style="text-align: center;">Valor</th>
+            <th scope="col" style="text-align: center;">Descrição do Custo</th>
+            <th scope="col" style="text-align: center;">ID Depósito ou Pagto</th>
+            <th scope="col" style="text-align: center;">Data Pagto</th>
+            <th scope="col" style="text-align: center;">Carta</th>
+            <th scope="col" style="text-align: center;">Instância</th>
+            <th scope="col" style="text-align: center;">Recurso</th>
+            <th scope="col" style="text-align: center;">Valor Recurso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of custoGrid">
+            <td>
+              <button mat-mini-fab color="Basic" matTooltip="Excluir Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-mini-fab color="Basic" matTooltip="Editar Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+            <td style="text-align: center;">{{items.codigo}}</td>
+            <td style="text-align: center;">{{items.tpCusto}}</td>
+            <td style="text-align: center;">{{items.valor}}</td>
+            <td style="text-align: center;">{{items.descricaoCusto}}</td>
+            <td style="text-align: center;">{{items.idDepositoPagamento}}</td>
+            <td style="text-align: center;">{{items.dtPagamento}}</td>
+            <td style="text-align: center;">{{items.carta}}</td>
+            <td style="text-align: center;">{{items.instancia}}</td>
+            <td style="text-align: center;">{{items.recurso}}</td>
+            <td style="text-align: center;">{{items.valorRecurso}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-encargos" role="tabpanel" aria-labelledby="nav-encargos-tab">
+    <br>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Encargo</mat-label>
+          <mat-select #Encargo>
+            <mat-option *ngFor="let item of encargo" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=85>
+          <mat-label>Valor</mat-label>
+          <input #valorEnc matInput value="" mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-4">
+        <mat-form-field appearance="outline" [style.width.%]=110>
+          <mat-label>Obs</mat-label>
+          <input #observacao matInput value="">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-10"></div>
+      <div class="form-group col-md-2">
+        <button (click)="insereEncargo(Encargo.value,valorEnc.value,observacao.value)" mat-button [style.width.%]=60>Incluir
+          <mat-icon>add_task</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;">Codigo</th>
+            <th scope="col" style="text-align: center;">Encargo</th>
+            <th scope="col" style="text-align: center;">Valor</th>
+            <th scope="col" style="text-align: center;">Observação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of encargoGrid">
+            <td style="text-align: center;">{{items.codigo}}</td>
+            <td style="text-align: center;">{{items.encargo}}</td>
+            <td style="text-align: center;">{{items.valor}}</td>
+            <td style="text-align: center;">{{items.observacao}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-despesas" role="tabpanel" aria-labelledby="nav-despesas-tab">
+    <br>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <mat-form-field appearance="outline" [style.width.px]=300>
+          <mat-label>Despesas</mat-label>
+          <mat-select #Despesa>
+            <mat-option *ngFor="let item of encargo" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.px]=130>
+          <mat-label>Id Dep./Pagto</mat-label>
+          <input #idPagtoDes matInput value="">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.px]=145>
+          <mat-label>Data Pagto</mat-label>
+          <input #dataDes matInput placeholder="DD/MM/YYYY" type="date">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.px]=130>
+          <mat-label>Valor</mat-label>
+          <input #valorDes matInput value="" mask="separator.2" thousandSeparator=".">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.px]=100>
+          <mat-label>Instância</mat-label>
+          <mat-select #instanciaDes>
+            <mat-option *ngFor="let item of instanciaDespesa" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-10"></div>
+      <div class="form-group col-md-2">
+        <button (click)="insereDespesas(Despesa.value,valorDes.value,idPagtoDes.value,dataDes.value, instanciaDes.value)" mat-button [style.width.%]=62>Incluir
+          <mat-icon>add_task</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;"></th>
+            <th scope="col" style="text-align: center;">Codigo</th>
+            <th scope="col" style="text-align: center;">Despesa</th>
+            <th scope="col" style="text-align: center;">Valor</th>
+            <th scope="col" style="text-align: center;">ID Pagto</th>
+            <th scope="col" style="text-align: center;">Data</th>
+            <th scope="col" style="text-align: center;">Observação</th>
+            <th scope="col" style="text-align: center;">Instância</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of despesaGrid">
+            <td>
+              <button mat-mini-fab color="Basic" matTooltip="Excluir Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-mini-fab color="Basic" matTooltip="Editar Registro" matTooltipPosition="above"
+                [ngStyle]="{transform: 'scale(0.8)'}">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+            <td style="text-align: center;">{{items.codigo}}</td>
+            <td style="text-align: center;">{{items.despesa}}</td>
+            <td style="text-align: center;">{{items.valor}}</td>
+            <td style="text-align: center;">{{items.idPagto}}</td>
+            <td style="text-align: center;">{{items.data}}</td>
+            <td style="text-align: center;">{{items.observacao}}</td>
+            <td style="text-align: center;">{{items.instancia}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-condenacao" role="tabpanel" aria-labelledby="nav-condenacao-tab">
+    <br>
+    <div class="row">
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Instância</mat-label>
+          <mat-select #instanciaCon>
+            <mat-option *ngFor="let item of instanciaCondenacao" [value]="item.ID">
+              {{item.Descricao}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-1"></div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Data</mat-label>
+          <input #dataCon matInput placeholder="DD/MM/YYYY" type="date">
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-2">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Valor</mat-label>
+
+          <input #valorCon matInput value="" mask="separator.2" thousandSeparator=".">
+
+        </mat-form-field>
+      </div>
+      <div class="form-group col-md-4">
+        <mat-form-field appearance="outline" [style.width.%]=100>
+          <mat-label>Obs</mat-label>
+
+          <input #obsCon matInput value="">
+
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-10"></div>
+      <div class="form-group col-md-2">
+
+        <button (click)="insereCondenacao(instanciaCon.value, dataCon.value,valorCon.value, obsCon.value)" mat-button [style.width.%]=60>Incluir
+
+          <mat-icon>add_task</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" style="text-align: center;">Codigo</th>
+            <th scope="col" style="text-align: center;">Instância</th>
+            <th scope="col" style="text-align: center;">Data</th>
+            <th scope="col" style="text-align: center;">Valor</th>
+            <th scope="col" style="text-align: center;">Observação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of condenacaoGrid">
+            <td style="text-align: center;">{{items.codigo}}</td>
+            <td style="text-align: center;">{{items.instancia}}</td>
+            <td style="text-align: center;">{{items.data}}</td>
+            <td style="text-align: center;">{{items.valor}}</td>
+            <td style="text-align: center;">{{items.observacao}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-historico" role="tabpanel" aria-labelledby="nav-historico-tab">
+    <br>
+    <table class="table">
+      <thead>
+        <th></th>
+        <th>CÓDIGO DA AÇÃO</th>
+        <th>DESCRIÇÃO</th>
+        <th>DATA DE</th>
+        <th>DATA ATÉ</th>
+        <th>CLIENTE</th>
+        <th>PRODUTO</th>
+        <th>SITE</th>
+        <th>CÓDIGO LOG</th>
+        <th>NOME</th>
+        <th>DATA LOG</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of historicoGrid">
+          <td style="text-align: center;">{{items.codigoAcao}}</td>
+          <td style="text-align: center;">{{items.descricao}}</td>
+          <td style="text-align: center;">{{items.dataDe}}</td>
+          <td style="text-align: center;">{{items.dataAte}}</td>
+          <td style="text-align: center;">{{items.cliente}}</td>
+          <td style="text-align: center;">{{items.produto}}</td>
+          <td style="text-align: center;">{{items.site}}</td>
+          <td style="text-align: center;">{{items.codigoLog}}</td>
+          <td style="text-align: center;">{{items.nome}}</td>
+          <td style="text-align: center;">{{items.dataLog}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="nav-status" role="tabpanel" aria-labelledby="nav-status-tab">
+    <br>
+    <table class="table">
+      <thead>
+        <th></th>
+        <th>EVENTO</th>
+        <th>DATA SAIDA</th>
+        <th>DATA RETORNO</th>
+        <th>DATA INCLUSÃO</th>
+        <th>MATRICULA INCLUSÃO</th>
+        <th>NOME</th>
+        <th>CÓDIGO EVENTO</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of statusGrid">
+          <td style="text-align: center;">{{items.evento}}</td>
+          <td style="text-align: center;">{{items.dataSaida}}</td>
+          <td style="text-align: center;">{{items.dataRetorno}}</td>
+          <td style="text-align: center;">{{items.dataInclusao}}</td>
+          <td style="text-align: center;">{{items.matriculaInclusao}}</td>
+          <td style="text-align: center;">{{items.nome}}</td>
+          <td style="text-align: center;">{{items.codigoEvento}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="nav-disciplinar" role="tabpanel" aria-labelledby="nav-disciplinar-tab">
+    <br>
+    <table class="table">
+      <thead>
+        <th></th>
+        <th>Data</th>
+        <th>Evento</th>
+        <th>Observação</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of disciplinarGrid">
+          <td style="text-align: center;">{{items.data}}</td>
+          <td style="text-align: center;">{{items.evento}}</td>
+          <td style="text-align: center;">{{items.observacao}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="nav-chefia" role="tabpanel" aria-labelledby="nav-chefia-tab">
+    <br>
+    <table class="table">
+      <thead>
+        <th></th>
+        <th>SUPERIOR</th>
+        <th>DATA DE</th>
+        <th>DATA ATÉ</th>
+        <th>ALTERADO POR</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let items of disciplinarGrid">
+          <td style="text-align: center;">{{items.superior}}</td>
+          <td style="text-align: center;">{{items.dataDe}}</td>
+          <td style="text-align: center;">{{items.dataAte}}</td>
+          <td style="text-align: center;">{{items.alteradoPor}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

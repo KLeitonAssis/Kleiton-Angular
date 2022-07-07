@@ -1,0 +1,15 @@
+{
+    "/api/*": {
+       "target": "http://localhost:56720/",
+       "secure": false,
+       "logLevel": "debug",
+       "changeOrigin": true
+    },
+   
+   "/download/*": {
+       "target": "http://tmkt.servicos.mkt/docs_ope/Transacoes/Ativos/Relatorio_Juridico/",
+       "secure": false,
+       "changeOrigin": true,
+       "logLevel": "debug"
+   }
+}

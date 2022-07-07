@@ -1,0 +1,32 @@
+<form class="form-group" name="form">
+    <div class="row">
+        <div class="col col-lg-2">
+            <mat-form-field appearance="outline" [style.width.px]=100 matTooltip="Informe a Matricula">
+                <mat-label>Matrícula</mat-label>
+                <input matInput [(ngModel)]="matricula" id="matricula" name="matricula">
+              </mat-form-field>
+        </div>
+        <div class="col col-lg-1">
+            <button mat-button [style.width.px]=90 matTooltip="Buscar Matrícula" (click)="getAcessoFuncionario()">Buscar
+                <mat-icon>search</mat-icon>
+            </button>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"  style="text-align: center;">Item</th>
+                <th scope="col"  style="text-align: center;" >Vizualizar</th>
+                <th scope="col" style="text-align: center;">Bloquear</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let items of camposArray">
+                <td style="text-align: center;">{{items.Descricao}}</td>
+                <td style="text-align: center;"><input type="checkbox" [checked]="items.Visualizar"></td>
+                <td style="text-align: center;"><input type="checkbox"[checked]="items.Habilitar"></td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+     

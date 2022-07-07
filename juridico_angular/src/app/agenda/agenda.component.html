@@ -1,0 +1,43 @@
+<form class="form-group">
+    <div class="form-group row">
+        <div class="col col-lg-2">
+            <mat-form-field appearance="outline" [style.width.px]=200>
+                <mat-label>Data</mat-label>
+                <input matInput placeholder="DD/MM/YYYY" type="datetime-local">
+              </mat-form-field>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <th></th>
+            <th>Data-hora</th>
+            <th>Tipo</th>
+            <th>Processo</th>
+            <th>Reclamante</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <button mat-mini-fab color="Basic" matTooltip="Editar Agendamento no Processo">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="Basic" matTooltip="Descartar Registro de Agendamento">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </td>
+                <td>
+                    01/01/1900 09:10
+                </td>
+                <td>
+                    Audiencia
+                </td>
+                <td>
+                    Um processo
+                </td>
+                <td>
+                    Um reclamante
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form> 

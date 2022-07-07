@@ -1,0 +1,23 @@
+
+  <form>
+    <h4>Certifique-se que a opção que irá incluir <b>não</b> está disponível no combo.</h4>
+    <mat-form-field appearance="outline" [style.width.px]=400>
+      <mat-label>Selecione o Combo para Adicionar</mat-label>
+      <mat-select [(ngModel)]="selectedValue" name="combo">
+        <mat-option *ngFor="let opcao of opcoesCombo" [value]="opcao.value">
+          {{opcao.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p> Inclusão no Combo: {{selectedValue}} </p>
+    <mat-form-field appearance="outline" [style.width.px]=400>
+        <mat-label>Descrição</mat-label>
+        <input matInput value="">
+      </mat-form-field>
+  </form>
+
+  <div class="form-group col-md-2">
+    <button mat-button [style.width.px]=90>Incluir
+      <mat-icon>add_task</mat-icon>
+    </button>
+  </div>
